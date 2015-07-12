@@ -1,0 +1,23 @@
+{
+  "name": "project-shell-env",
+  "main": "./lib/project-shell-env",
+  "version": "0.1.0",
+  "description": "Make Atom use the env variable set by the user's shell inside project directory",
+  "keywords": [
+    "env",
+    "shell",
+    "rvm",
+    "rbenv",
+    "pyenv",
+    "direnv",
+    "autoenv"
+  ],
+  "repository": "https://github.com/ddiachkov/atom-project-shell-env",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "os" : [ "darwin", "linux" ],
+  "dependencies": {
+  }
+}

@@ -1,7 +1,7 @@
 {
   "name": "project-shell-env",
   "main": "./lib/project-shell-env",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Make Atom use the env variable set by the user's shell inside project directory",
   "keywords": [
     "env",
@@ -17,7 +17,9 @@
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
-  "os" : [ "darwin", "linux" ],
-  "dependencies": {
-  }
+  "os": [
+    "darwin",
+    "linux"
+  ],
+  "dependencies": {}
 }

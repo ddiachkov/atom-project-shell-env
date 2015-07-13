@@ -180,7 +180,7 @@ class ProjectShellEnv
 
     # Get project root path
     # TODO: we doesn't support multiple projects in 1 window!
-    projectRoot = atom.project.rootDirectories[ 0 ].path
+    projectRoot = atom.project.getPaths()[ 0 ]
 
     debug "project root: #{projectRoot}"
 

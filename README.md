@@ -8,6 +8,11 @@ Q: Why the package name starts with dash?
 A: To force atom to load package before all other packages so they can use project environment variables.
 ```
 
+```
+Q: Why this package is so slow?
+A: Because it is synchronously executing shell script when atom started.
+```
+
 ## Commands
 
 * `project-shell-env:load`

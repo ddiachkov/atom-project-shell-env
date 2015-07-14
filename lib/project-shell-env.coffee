@@ -174,10 +174,14 @@ class ProjectShellEnv
     # Automatically load env variables when atom started
     this.load()
 
+    # Automatically reload env variables when project root is changed
+    @changeProjectPathDisposable = atom.project.onDidChangePaths( this.load )
+
   deactivate: =>
     # Delete our commands and return original env variables
     @envDisposable?.dispose() and delete @envDisposable
     @commandsDisposable?.dispose() and delete @commandsDisposable
+    @changeProjectPathDisposable?.dispose() and delete @changeProjectPathDisposable
 
   load: =>
     # Unload previous set variables
@@ -188,6 +192,10 @@ class ProjectShellEnv
     projectRoot = atom.project.getPaths()[ 0 ]
 
     debug "project root: #{projectRoot}"
+
+    # Do nothing if there is no project root (this can happen for example when
+    # user tries to open nonexistent file or directory).
+    return unless projectRoot
 
     # Combine system and user's blacklists
     envBlacklist = [].concat( IGNORED_ENV ).concat( atom.config.get( "project-shell-env.blacklist" ))

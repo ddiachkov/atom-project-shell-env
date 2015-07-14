@@ -7,7 +7,6 @@ describe "ProjectShellEnv", ->
       atom.packages.activatePackage PACKAGE_NAME
 
   afterEach ->
-    console.debug "UNLOD"
     atom.packages.deactivatePackage PACKAGE_NAME
 
   describe "when the project-shell-env:load event is triggered", ->

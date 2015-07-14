@@ -1,7 +1,12 @@
-# project-shell-env package
+# !project-shell-env package
 
-This package will automatically load shell environment variables for opened project.
-Designed to use with tools such as rvm, direnv, autoenv, etc.
+This package will automatically load shell environment variables for the opened project. Designed to use with tools such as rvm, direnv, autoenv, etc.
+
+## FAQ
+```
+Q: Why the package name starts with the exclamation mark?
+A: To force atom to load package before all other packages so they can use project environment variables.
+```
 
 ## Commands
 

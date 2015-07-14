@@ -1,4 +1,4 @@
-PACKAGE_NAME = "!project-shell-env"
+PACKAGE_NAME = "-project-shell-env"
 PACKAGE_NAMESPACE = "project-shell-env"
 
 describe "ProjectShellEnv", ->

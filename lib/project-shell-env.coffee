@@ -152,8 +152,9 @@ setAtomEnv = ( env ) ->
 class ProjectShellEnv
   # ENV variables that NEVER will be loaded
   IGNORED_ENV = [
-    "_",    # Contains previous command executed. Always equals to "env"
-    "SHLVL" # How deeply Bash is nested. Always equals to 3
+    "_",        # Contains previous command executed. Always equals to "env"
+    "SHLVL"     # How deeply Bash is nested. Always equals to 3
+    "NODE_PATH" # Path for node modules. We MUST always use value provided by atom
   ]
 
   config:

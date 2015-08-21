@@ -1,3 +1,6 @@
+## 0.2.2
+* Don't override NODE_PATH
+
 ## 0.2.1
 * Fixed an issue with undefined project root
 * Automatically reload env when project root is changed

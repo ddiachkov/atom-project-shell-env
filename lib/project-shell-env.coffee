@@ -21,9 +21,10 @@ shellEscape = ( string ) ->
 # Returns shell environment variables in the given directory as string.
 #
 # @param [String] path
+# @param [Number] execution timeout
 # @return [String]
 #
-getShellEnv = ( path ) ->
+getShellEnv = ( path, timeout = 1000 ) ->
   # SHELL env variable contains user's shell even when atom is launched from GUI
   shell = process.env[ "SHELL" ] ? "bash"
 
@@ -56,7 +57,7 @@ getShellEnv = ( path ) ->
   # atom until shell variable are loaded.
   shellResult = spawnSync shell, shellFlags,
     input:   shellScript.join( "\n" )
-    timeout: 1000 # Maximum 1 second to execute
+    timeout: timeout
 
   # Throw timeout error
   throw shellResult.error if shellResult.error
@@ -73,7 +74,7 @@ getShellEnv = ( path ) ->
 ##
 # Parses output of "env" utility and returns variable as hash.
 #
-# @param [String] envOutput
+# @param [String] env output
 # @return [Object]
 #
 parseShellEnv = ( shellEnv ) ->
@@ -158,6 +159,9 @@ class ProjectShellEnv
     "LD_LIBRARY_PATH" # Path for shared libraries. Can cause serious problems (@see issue #2)
   ]
 
+  # Shell timeout
+  TIMEOUT = 3000
+
   config:
     blacklist:
       order: 1
@@ -206,7 +210,7 @@ class ProjectShellEnv
 
     # Set project variables
     try
-      @envDisposable = setAtomEnv( filterEnv( parseShellEnv( getShellEnv( projectRoot )), envBlacklist ))
+      @envDisposable = setAtomEnv( filterEnv( parseShellEnv( getShellEnv( projectRoot, TIMEOUT )), envBlacklist ))
     catch err
       # Throw error so specs will fail
       if atom.inSpecMode()

@@ -1,7 +1,7 @@
 {
   "name": "000-project-shell-env",
   "main": "./lib/project-shell-env",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Make Atom use the env variables set by the user's shell inside project directory",
   "keywords": [
     "env",

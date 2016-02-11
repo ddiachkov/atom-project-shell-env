@@ -1,3 +1,8 @@
+## 0.3.0
+* Package renamed to 000-project-shell-env
+* Fixed an issue with LD_LIBRARY_PATH (#2)
+* Shell timeout increased to 3 secs.
+
 ## 0.2.3
 * Don't override NODE_PATH
 

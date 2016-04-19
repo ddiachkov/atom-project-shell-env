@@ -15,7 +15,7 @@ debug = ( statements... ) ->
 # @return [String]
 #
 shellEscape = ( string ) ->
-  return string.replace( /([^A-Za-z0-9_\-.,:\/@])/, "\\$1" )
+  return string.replace( /([^A-Za-z0-9_\-.,:\/@])/g, "\\$1" )
 
 ##
 # Returns shell environment variables in the given directory as string.

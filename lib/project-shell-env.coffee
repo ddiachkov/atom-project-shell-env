@@ -27,6 +27,7 @@ shellEscape = ( string ) ->
 getShellEnv = ( path, timeout = 1000 ) ->
   # SHELL env variable contains user's shell even when atom is launched from GUI
   shell = process.env[ "SHELL" ] ? "bash"
+  shellName = shell.split('/').pop()
 
   # List of flags with which shell will be invoked
   shellFlags = [
@@ -38,17 +39,25 @@ getShellEnv = ( path, timeout = 1000 ) ->
   marker = "--- 8< ---"
 
   # Script that will be passed as stdin to the shell
-  shellScript = [
-    # Change directory or exit
-    # NB: some tools (eg. RVM) can redefine "cd" command to execute some code
-    "cd #{shellEscape path} || exit -1",
+  shellScripts =
+    bash: [
+      # Change directory or exit
+      # NB: some tools (eg. RVM) can redefine "cd" command to execute some code
+      "cd #{shellEscape path} || exit -1",
 
-    # Print env inside markers
-    "echo '#{marker}' && env && echo '#{marker}'",
+      # Print env inside markers
+      "echo '#{marker}' && env && echo '#{marker}'",
 
-    # Exit shell
-    "exit"
-  ]
+      # Exit shell
+      "exit"
+    ],
+    fish: [
+      "cd #{shellEscape path}; or exit -1",
+      "echo '#{marker}'; and env; and echo '#{marker}'",
+      "exit"
+    ]
+  # Script that will be passed as stdin to the shell, defaults to bash syntax
+  shellScript = if shellName of shellScripts then shellScripts[shellName] else shellScripts['bash']
 
   # Spawn shell process and execute script
   # NB: we can't use "exec" because we need full-fledged login interactive shell

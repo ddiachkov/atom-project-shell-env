@@ -28,36 +28,21 @@ getShellEnv = ( path, timeout = 1000 ) ->
   # SHELL env variable contains user's shell even when atom is launched from GUI
   shell = process.env[ "SHELL" ] ? "bash"
 
-  # List of flags with which shell will be invoked
-  shellFlags = [
-    "-l", # We must use login shell to load user environment
-    "-i"  # We must use interactive shell to ensure user config is loaded
-  ]
-
   # Marker string to mark command output
   marker = "--- 8< ---"
 
-  # Script that will be passed as stdin to the shell
+  # Script that will be passed as command to the shell
   shellScript = [
-    # Change directory or exit
-    # NB: some tools (eg. RVM) can redefine "cd" command to execute some code
-    "cd #{shellEscape path} || exit -1",
-
     # Print env inside markers
-    "echo '#{marker}' && env && echo '#{marker}'",
-
-    # Exit shell
-    "exit"
+    "echo '#{marker}' && env && echo '#{marker}'"
   ]
 
   # Spawn shell process and execute script
-  # NB: we can't use "exec" because we need full-fledged login interactive shell
-  # with command prompt because some tools (eg. direnv) may use PROMPT_COMMAND
-  # to execute some code; we also can't use "spawn" because we need to block
-  # atom until shell variable are loaded.
-  shellResult = spawnSync shell, shellFlags,
-    input:   shellScript.join( "\n" )
-    timeout: timeout
+  shellResult = spawnSync shellScript.join( ";" ),
+    cwd:      path
+    timeout:  timeout
+    shell:    shell
+    encoding: 'utf8'
 
   # Throw timeout error
   throw shellResult.error if shellResult.error

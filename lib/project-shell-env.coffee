@@ -44,7 +44,7 @@ getShellEnv = ( path, timeout = 1000 ) ->
     "cd #{shellEscape path} || exit -1",
 
     # Print env inside markers
-    "echo '#{marker}' && env && echo '#{marker}'",
+    "PS1='$ '; echo '#{marker}' && env && echo '#{marker}'",
 
     # Exit shell
     "exit"
